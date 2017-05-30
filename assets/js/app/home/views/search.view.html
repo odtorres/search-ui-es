@@ -1,0 +1,157 @@
+<section class="ui container" ng-controller="SearchController" style="overflow: auto;">
+    <general-menu></general-menu>
+    <div class="ui vertical stripe segment">
+
+        <div class="ui hidden small negative message">
+            <i class="close icon"></i>
+            <div class="header">
+                {{errorMessage}}
+            </div>
+            <p>
+                {{errorDetails}}
+            </p>
+        </div>
+
+        <div class="content" ng-if="search==''">
+            
+        </div>
+
+        <div class="content" ng-if="search!=''">
+
+            <div class="ui relaxed divided list" ng-if="contents.length!=0">
+                <div class="item" ng-repeat="content in contents" ng-init="searchPos = content.content.toLowerCase().indexOf(search.toLowerCase())"
+                    ng-if="searchPos!=-1">
+                    <i class="large book middle aligned icon"></i>
+                    <div class="content">
+                        <a class="header" href="{{content.url}}">{{content.url}}</a>
+                        <div class="description">{{content.content.substring(searchPos,searchPos+100) +"..."}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui icon message" ng-if="contents.length==0">
+                <i class="inbox icon"></i>
+                <div class="content">
+                    <div class="header">
+                        No content found
+                    </div>
+                    <p>Try with other key words.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="addCrawlerModal" class="ui modal">
+            <div class="header">Add Crawler</div>
+            <div class="content">
+                <div class="content">
+                    <form class="ui form">
+                        <div class="two fields">
+                            <div class="field">
+                                <label for="">Name</label>
+                                <input type="text" ng-model="crawlerName" placeholder="Name">
+                            </div>
+                            <div class="field">
+                                <label for="">Base url</label>
+                                <input type="text" ng-model="crawlerBaseUrl" placeholder="Base url">
+                            </div>
+                        </div>
+                        <div class="two fields">
+                            <div class="field">
+                                <label for="">Max Url</label>
+                                <input type="number" ng-model="crawlerMaxUrl" placeholder="Max Url">
+                            </div>
+                            <div class="field">
+                                <label for="">Deep</label>
+                                <input type="number" ng-model="crawlerDeep" placeholder="Deep">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="">Sections to extract: </label>
+                            <input type="text" ng-model="sectionsToExtract" placeholder="Sections to extract">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="actions">
+                <div class="ui approve button" ng-click="createCrawler()">Approve</div>
+                <div class="ui cancel button" ng-click="cleanCrawlerData()">Cancel</div>
+            </div>
+        </div>
+
+        <div id="editCrawlerModal" class="ui modal">
+            <div class="header">Edit Crawler</div>
+            <div class="content">
+                <div class="content">
+                    <form class="ui form">
+                        <div class="two fields">
+                            <div class="field">
+                                <label for="">Name</label>
+                                <input type="text" ng-model="crawlerName" placeholder="Name">
+                            </div>
+                            <div class="field">
+                                <label for="">Base url</label>
+                                <input type="text" ng-model="crawlerBaseUrl" placeholder="Base url">
+                            </div>
+                        </div>
+                        <div class="two fields">
+                            <div class="field">
+                                <label for="">Privacy</label>{{index}}
+                                <!--<select ng-model="index">
+                                    <option selected>public</option>
+                                    <option>private</option>
+                                </select>-->
+                            </div>
+                            <div class="field">
+                                <label for="">Clasification</label>
+                                <input type="text" ng-model="type" placeholder="Base url">
+                            </div>
+                        </div>
+                        <div class="two fields">
+                            <div class="field">
+                                <label for="">Max Url</label>
+                                <input type="number" ng-model="crawlerMaxUrl" placeholder="Max Url">
+                            </div>
+                            <div class="field">
+                                <label for="">Deep</label>
+                                <input type="number" ng-model="crawlerDeep" placeholder="Deep">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="">Sections to extract: </label>
+                            <input type="text" ng-model="sectionsToExtract" placeholder="Sections to extract">
+                        </div>
+                        <div class="three fields">
+                            <div class="field">
+                                <label for="">Size</label>
+                                <div>{{crawlerSize}} bytes <i class="download icon"></i></div>
+                            </div>
+                            <div class="field">
+                                <label for="">State</label>
+                                <div>{{element.state}}</div>
+                            </div>
+                            <div class="field">
+                                <label for="">Urls length</label>
+                                <div>{{element.contents.length}}</div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui relaxed divided list">
+                                <div class="item" ng-repeat="content in crawlerUrls" ng-if="$index<=10">
+                                    <i class="large github middle aligned icon"></i>
+                                    <div class="content">
+                                        <a class="header" href="{{content.baseUrl}}">{{content.url}}</a>
+                                        <div class="description">{{content.content.substring(0,150)}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="actions">
+                <div class="ui approve button" ng-click="editCrawler(crawlerId)">Approve</div>
+                <div class="ui cancel button" ng-click="cleanCrawlerData()">Cancel</div>
+            </div>
+        </div>
+    </div>
+
+</section>

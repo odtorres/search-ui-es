@@ -1,0 +1,20 @@
+<!-- Following Menu -->
+<div id="home-general-menu" class="ui blue top fixed inverted menu transition hidden">
+    <div class="ui container">
+        <a href="#!/" class="active item">Home</a>
+        <a href="#!/manager"  ng-if="isAdmin" class="item">Manager</a>        
+        <a class="item">Careers</a>
+        <div class="right menu">
+            <div class="item" ng-if="!userInfo.authenticated">
+                <a href="#!/authentication" class="ui button">Log in</a>
+            </div>
+            <div class="item" ng-if="!userInfo.authenticated">
+                <a href="#!/signup" class="ui primary button">Sign Up</a>
+            </div>
+
+            <div class="item" ng-if="userInfo.authenticated">
+                <user-dropdown></user-dropdown>
+            </div>
+        </div>
+    </div>
+</div>
